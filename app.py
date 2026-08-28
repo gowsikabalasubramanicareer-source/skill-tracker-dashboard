@@ -4,6 +4,7 @@ import io
 import os
 import re
 from datetime import datetime
+from zoneinfo import ZoneInfo
 from pathlib import Path
 
 import numpy as np
@@ -1282,7 +1283,7 @@ def build_student_pdf(student_row, master, data, programme, source_mode):
         ["Student", Paragraph(_pdf_safe(name, 45), small), "Register No.", Paragraph(_pdf_safe(reg, 32), small)],
         ["Programme", Paragraph(_pdf_safe(f"{programme} - {SEMESTER}", 45), small), "Academic Year", Paragraph(_pdf_safe(ACADEMIC_YEAR, 20), small)],
         ["Performance Status", Paragraph(_pdf_safe(status, 30), small), "Composite Performance", Paragraph(display_value(student_row.get('Composite Performance %', np.nan), 'percent'), small)],
-        ["Data Source", Paragraph(source_label, small), "Generated", Paragraph(datetime.now().strftime('%d %b %Y, %I:%M %p'), small)],
+        ["Data Source", Paragraph(source_label, small), "Generated", Paragraph(datetime.now(ZoneInfo("Asia/Kolkata")).strftime('%d %b %Y, %I:%M %p'), small)],
     ]
     t = Table(meta, colWidths=[30*mm, 58*mm, 35*mm, 55*mm])
     t.setStyle(TableStyle([
@@ -1480,7 +1481,7 @@ def apply_filters(master):
     return filtered, reg, active_filters
 
 def hero(programme_label, data, filtered, source_mode, connection_ok=True):
-    refreshed = datetime.now().strftime("%d %b %Y, %I:%M %p")
+    refreshed = datetime.now(ZoneInfo("Asia/Kolkata")).strftime("%d %b %Y, %I:%M %p")
     total = len(data["master"])
     shown = len(filtered)
     source_text = "Live Google Sheets" if source_mode == "Live Google Sheets" else data["source_name"]
