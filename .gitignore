@@ -1,0 +1,4 @@
+.streamlit/
+data/
+*.json
+__pycache__/

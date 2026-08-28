@@ -1,0 +1,9 @@
+streamlit>=1.37
+pandas>=2.2
+numpy>=1.26
+openpyxl>=3.1
+plotly>=5.22
+streamlit-autorefresh>=1.0.1
+gspread>=6.0
+google-auth>=2.29
+reportlab>=4.0
